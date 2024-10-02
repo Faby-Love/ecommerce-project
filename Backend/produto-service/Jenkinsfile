@@ -8,38 +8,38 @@ pipeline {
                 checkout scm
             }
         }
-    }
 
-    stage('Build Produto-Service') {
-        steps {
-            // Comandos para construir o micro serviço Java
-            sh './mvnw clean package'
-        }
-    }
-
-    stage('Test Produto-Service') {
-        steps {
-            // Comando para realizar os testes
-            sh './mvnw test'
-        }
-    }
-
-    stage('Docker Build & Push') {
-        steps {
-            script {
-                // Build da imagem Docker do micro serviço
-                sh 'docker build -t myrepo/produto-service:latest .'
-
-                // Push da imagem para um repositório de imagens (como docker hub ou AWS ECR)
-                sh 'docker push myrepo/produto-service:latest'
+        stage('Build Produto-Service') {
+            steps {
+                // Comandos para construir o micro serviço Java
+                sh './mvnw clean package'
             }
         }
-    }
 
-    stage('Deploy') {
-        steps {
-            // Comando para realizar o deploy, por exemplo, rodando um container ou usando o kubernates
-            sh 'docker-compose uo -d'
+        stage('Test Produto-Service') {
+            steps {
+                // Comando para realizar os testes
+                sh './mvnw test'
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    // Build da imagem Docker do micro serviço
+                    sh 'docker build -t myrepo/produto-service:latest .'
+
+                    // Push da imagem para um repositório de imagens (como docker hub ou AWS ECR)
+                    sh 'docker push myrepo/produto-service:latest'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Comando para realizar o deploy, por exemplo, rodando um container ou usando o kubernates
+                sh 'docker-compose up -d'
+            }
         }
     }
 }
