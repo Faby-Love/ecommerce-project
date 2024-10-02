@@ -11,15 +11,19 @@ pipeline {
 
         stage('Build Produto-Service') {
             steps {
-                // Comandos para construir o micro serviço Java
-                sh './mvn clean package'
+                dir('Backend/produto-service') {
+                    // Comandos para construir o micro serviço Java
+                    sh './mvnw clean package'
+                }
             }
         }
 
         stage('Test Produto-Service') {
             steps {
-                // Comando para realizar os testes
-                sh './mvn test'
+                dir('Backend/produto-service') {
+                    // Comando para realizar os testes
+                    sh './mvnw test'
+                }
             }
         }
 
