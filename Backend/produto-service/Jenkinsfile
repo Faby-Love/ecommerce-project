@@ -11,7 +11,9 @@ pipeline {
 
         stage('Set Permissions') {
             steps {
-                sh 'chmod +x mvnw || true' //ignora erros caso não consiga mudar a permissão
+                dir('Backend/produto-service') {
+                    sh 'chmod +x mvnw || true' //ignora erros caso não consiga mudar a permissão
+                }
             }
         }
 
