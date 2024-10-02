@@ -1,0 +1,59 @@
+services: 
+  produto-database-service: # nome do serviço
+    image: mysql:8.0 # imagem a ser baixada na versão 8.0
+    container_name: produto-database # nome do container
+    environment: # variaveis de ambiente
+      MYSQL_DATABASE: produto_db # nome do banco de dados
+      MYSQL_ROOT_PASSWORD: root  # senha do admin do banco
+      MYSQL_USER: user_produto # login para usuario inferiores
+      MYSQL_PASSWORD: produto # senha do usuario inferior
+    ports: # porta do container 3307 para se comunicar com 3306 
+      - "3307:3306"
+    volumes: # onde será armazenados os dados do banco mesmo se o container cair ou ser reiniciado não perderá os dados
+      - produto_db_data:/var/lib/mysql
+
+  usuario-database-service:
+    image: mysql:8.0
+    container_name: usuario_database
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: usuario_db
+      MYSQL_USER: usuario_user
+      MYSQL_PASSWORD: usuario
+    ports:
+      - "3308:3306"
+    volumes: 
+     - usuario_db_data:/var/lib/mysql
+  
+  pedido-database-service:
+    image: mysql:8.0
+    container_name: pedido_database
+    environment: 
+      MYSQL_DATABASE: pedido_db
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: pedido_user
+      MYSQL_PASSWORD: pedido
+    ports: 
+      - "3309:3306"
+    volumes:
+      - pedido_db_data:/var/lib/mysql
+
+  pagamento-databse-service:
+    image: mysql:8.0
+    container_name: pagamento_database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pagamento_db
+      MYSQL_USER: pedido_user
+      MYSQL_PASSWORD: pedido
+    ports:
+      - "3310:3306"
+    volumes:
+      - pagamento_db_data:/var/lib/mysql
+
+volumes: 
+  produto_db_data:
+  usuario_db_data:
+  pedido_db_data:
+  pagamento_db_data:
+
