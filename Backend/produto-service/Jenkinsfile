@@ -13,6 +13,8 @@ pipeline {
             steps {
                 dir('Backend/produto-service') {
                     sh 'chmod +x mvnw || true' //ignora erros caso não consiga mudar a permissão
+                    sh 'ls -la' //verificando se o arquivo e diretorio estão presentes
+                    sh 'ls -la .mvn/wrapper' // aqui ele especifica o diretorio
                 }
             }
         }
