@@ -12,7 +12,7 @@ pipeline {
         stage('Build Produto-Service') {
             steps {
                 dir('Backend/produto-service') {
-                    // Comandos para construir o micro serviço Java
+                    // Comandos para construir o micro serviço Java 
                     sh './mvnw clean package'
                 }
             }
