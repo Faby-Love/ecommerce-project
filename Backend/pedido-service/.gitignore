@@ -42,7 +42,6 @@ target/
 *.iml
 
 # Configuração do Maven
-.mvn/
 **/pom.xml.tag
 **/pom.xml.releaseBackup
 **/pom.xml.versionsBackup
