@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_CREDENTIALS_ID='docker-hub-credentials'
+        DOCKER_REPO='myrepo/produto-service'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -37,16 +42,18 @@ pipeline {
             }
         }
 
-        stage('Docker Build & Push') {
+        stage('Docker Build') {
             steps {
                 script {
                     // Muda para o diretório onde o Dockerfile está
                     dir('Backend/produto-service') {
                         // Build da imagem Docker do micro serviço
-                        sh 'docker build -t myrepo/produto-service:latest .'
+                        sh 'docker build -t $DOCKER_REPO:latest .'
                         
-                        // Push da imagem para um repositório de imagens (como docker hub ou AWS ECR)
-                        sh 'docker push myrepo/produto-service:latest'
+                        docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
+                            // Push da imagem para um repositório de imagens (como docker hub ou AWS ECR)
+                            sh 'docker push $DOCKER_REPO:latest'
+                        }
                     }
                 }
             }
