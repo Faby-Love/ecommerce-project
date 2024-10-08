@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID='docker-hub-credentials'
-        DOCKER_REPO='produto_service_repository'
+        DOCKER_REPO='erickalandev/produto_service_repository'
     }
 
     stages {
