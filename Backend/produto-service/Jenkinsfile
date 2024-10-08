@@ -61,8 +61,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // Comando para realizar o deploy, por exemplo, rodando um container ou usando o kubernates
-                sh 'docker-compose up -d'
+                dir('Backend') { 
+                    // Comando para realizar o deploy, por exemplo, rodando um container ou usando o kubernates
+                    sh 'docker-compose up -d'
+                }
             }
         }
     }
