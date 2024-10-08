@@ -40,11 +40,14 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    // Build da imagem Docker do micro serviço
-                    sh 'docker build -t myrepo/produto-service:latest .'
-
-                    // Push da imagem para um repositório de imagens (como docker hub ou AWS ECR)
-                    sh 'docker push myrepo/produto-service:latest'
+                    // Muda para o diretório onde o Dockerfile está
+                    dir('Backend/produto-service') {
+                        // Build da imagem Docker do micro serviço
+                        sh 'docker build -t myrepo/produto-service:latest .'
+                        
+                        // Push da imagem para um repositório de imagens (como docker hub ou AWS ECR)
+                        sh 'docker push myrepo/produto-service:latest'
+                    }
                 }
             }
         }
